@@ -1,489 +1,394 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Janahan Paraparakumaran — Culinary & Retail Specialist</title>
-  <meta name="description" content="Janahan Paraparakumaran — Toronto-based Culinary & Retail Specialist. HACCP-trained, Micros POS proficient, strong work ethic. Available FT/PT in Scarborough, Markham & Toronto." />
-  <meta name="theme-color" content="#121212" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Janahan Paraparakumaran | Student Portfolio</title>
   <style>
-    :root{
-      --bg:#121214;               /* deep charcoal */
-      --card:#1b1b1d;
-      --muted:#bdbdbd;
-      --text:#ffffff;
-      --accent:#ff5a00;           /* vibrant orange */
-      --accent-2:#ff7a3a;
-      --glass:rgba(255,255,255,0.03);
-      --radius:12px;
-      --max-width:1100px;
-      --breakpoint-md:820px;
-      --breakpoint-sm:520px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    :root {
+      --charcoal: #1f1f1f;
+      --white: #ffffff;
+      --accent: #ff6a00; /* Vibrant Orange */
+      --muted: #b5b5b5;
     }
 
-    /* Global reset */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,var(--bg),#0f0f10 60%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
-      font-size:16px;
-      padding:24px;
-      display:flex;
-      justify-content:center;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .container{
-      width:100%;
-      max-width:var(--max-width);
-      display:flex;
-      flex-direction:column;
-      gap:40px;
+    body {
+      background-color: var(--charcoal);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    header.site-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
     }
 
-    /* Logo / name compact */
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo{
-      width:46px;
-      height:46px;
-      border-radius:10px;
-      background:linear-gradient(135deg,var(--card),#222);
-      display:grid;
-      place-items:center;
-      font-weight:800;
-      color:var(--accent);
-      box-shadow:0 4px 18px rgba(0,0,0,0.6), inset 0 -6px 18px rgba(255,255,255,0.02);
-    }
-    .brand h1{
-      margin:0;
-      font-size:1.05rem;
-      letter-spacing:0.2px;
-      font-weight:700;
+    .loader {
+      display: flex;
+      gap: 0.6rem;
     }
 
-    nav{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      background:var(--glass);
-      color:var(--muted);
-      font-size:0.9rem;
-      border:1px solid rgba(255,255,255,0.03);
+    .loader span {
+      width: 15px;
+      height: 15px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
     }
 
-    /* HERO */
-    .hero{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      padding:28px;
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 30px rgba(2,6,12,0.6);
+    .loader span:nth-child(2) {
+      animation-delay: 0.2s;
     }
-    .hero-inner{
-      display:flex;
-      gap:24px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .hero-left{
-      flex:1 1 320px;
-      min-width:220px;
-    }
-    .hero h2{
-      margin:0;
-      font-size:1.6rem;
-      letter-spacing:0.2px;
-      font-weight:800; /* bold, clean headers */
-    }
-    .hero p.lead{
-      margin:8px 0 0 0;
-      color:var(--muted);
-      font-weight:600;
+    .loader span:nth-child(3) {
+      animation-delay: 0.4s;
     }
 
-    .cta{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:12px;
-    }
-    .btn{
-      --pad-y:12px;
-      --pad-x:18px;
-      appearance:none;
-      border:0;
-      color:var(--bg);
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      padding:var(--pad-y) var(--pad-x);
-      border-radius:10px;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow: 0 6px 18px rgba(255,90,10,0.12), 0 1px 0 rgba(255,255,255,0.02) inset;
-      transition:transform .12s ease, box-shadow .12s ease;
-    }
-    .btn:active{ transform: translateY(1px) }
-    .btn.secondary{
-      background:transparent;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.04);
-      font-weight:600;
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1);
+      }
     }
 
-    .hero-right{
-      flex:0 1 260px;
-      display:flex;
-      justify-content:flex-end;
-      min-width:200px;
-    }
-    .profile-card{
-      width:220px;
-      padding:14px;
-      border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      text-align:center;
-    }
-    .profile-photo{
-      width:84px;
-      height:84px;
-      border-radius:8px;
-      background:linear-gradient(135deg,#2b2b2d,#151517);
-      margin:0 auto 10px auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent);
-      font-weight:800;
-      font-size:1.5rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    }
-    .profile-role{
-      color:var(--muted);
-      font-size:0.92rem;
-      margin:0;
+    /* Scroll Animations */
+    .animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
     }
 
-    /* Main sections */
-    main{
-      display:flex;
-      flex-direction:column;
-      gap:28px;
+    .animate.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .grid{
-      display:grid;
-      gap:16px;
+    /* Hero image animation */
+    .hero img {
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+    .hero img.visible {
+      transform: scale(1.05);
+      opacity: 1;
     }
 
-    /* Skill Matrix */
-    .skills{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
-    .skill-card{
-      padding:16px;
-      border-radius:12px;
-      background:linear-gradient(180deg,var(--card),#161616);
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 24px rgba(2,6,12,0.5);
-    }
-    .skill-card h3{
-      margin:0 0 8px 0;
-      font-size:1.02rem;
-      font-weight:800;
-      color:var(--accent-2);
-    }
-    .skill-list{
-      list-style:none;
-      margin:0;
-      padding:0;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      color:var(--muted);
-      font-weight:600;
-    }
-    .skill-list li::before{
-      content:'•';
-      color:var(--accent);
-      margin-right:8px;
-      display:inline-block;
-      width:12px;
-      text-align:center;
-      transform:translateY(-1px);
+    a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
-    /* Professional bio */
-    .bio{
-      padding:16px;
-      border-radius:12px;
-      background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
-      border:1px solid rgba(255,255,255,0.03);
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem 1.5rem;
     }
-    .bio p{margin:0;color:var(--muted);font-weight:600}
-    .bio strong{color:var(--text)}
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 650px;
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--charcoal);
+      padding: 0.9rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      width: fit-content;
+      transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255,106,0,0.6);
+      opacity: 0.95;
+    }
+
+    section {
+      margin-top: 4rem;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    /* Bio */
+    .bio p {
+      max-width: 800px;
+      color: #e6e6e6;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: #2a2a2a;
+      padding: 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+
+    .skill-card h3 {
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    .skill-card ul {
+      list-style: none;
+    }
+
+    .skill-card li {
+      margin-bottom: 0.4rem;
+    }
 
     /* Timeline */
-    .timeline{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:16px;
-      border-radius:12px;
-      background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
-      border:1px solid rgba(255,255,255,0.03);
+    .timeline {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 800px;
     }
-    .timeline-item{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
+
+    .timeline-item {
+      background: #2a2a2a;
+      padding: 1.4rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .timeline-date{
-      min-width:120px;
-      color:var(--muted);
-      font-weight:700;
-      font-size:0.95rem;
-      text-align:right;
+
+    .timeline-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
     }
-    .timeline-body{
-      flex:1;
-      background:var(--glass);
-      padding:12px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.02);
+
+    .timeline-item h4 {
+      margin-bottom: 0.3rem;
     }
-    .timeline-body h4{
-      margin:0 0 6px 0;
-      font-size:1rem;
-      font-weight:800;
+
+    .timeline-item span {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
-    .timeline-body p{margin:0;color:var(--muted);font-weight:600}
 
     /* Availability */
-    .availability{
-      padding:16px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03);
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    .availability {
+      background: #242424;
+      padding: 1.8rem;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 600;
     }
-    .availability .where{color:var(--muted);font-weight:700}
 
     /* Footer */
-    footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:18px;
-      border-radius:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border:1px solid rgba(255,255,255,0.03);
-      flex-wrap:wrap;
-    }
-    .contact{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      color:var(--muted);
-      font-weight:700;
-    }
-    .signoff{
-      color:var(--accent);
-      font-weight:800;
-      font-size:1.02rem;
+    footer {
+      margin-top: 4rem;
+      padding: 2rem 1.5rem;
+      background: #151515;
+      text-align: center;
     }
 
-    /* Responsive */
-    @media(min-width:var(--breakpoint-md)){
-      .skills{grid-template-columns:repeat(3,1fr)}
-      .hero-inner{align-items:center}
-      .timeline{gap:18px}
-    }
-    @media(max-width:520px){
-      body{padding:16px}
-      .hero-right{justify-content:flex-start}
-      .timeline-date{min-width:92px;text-align:left}
-      .hero h2{font-size:1.25rem}
+    footer p {
+      margin-bottom: 0.5rem;
     }
 
-    /* Focus states */
-    a,button{outline:none}
-    .btn:focus, .chip:focus { box-shadow:0 0 0 4px rgba(255,90,10,0.12) }
-    a:focus{outline:2px dashed rgba(255,90,10,0.18);outline-offset:4px}
+    footer .signoff {
+      margin-top: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding-top: 4rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <header class="site-header" aria-label="Site header">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">JP</div>
-        <div>
-          <h1>Janahan Paraparakumaran</h1>
-          <div style="font-size:0.86rem;color:var(--muted);margin-top:4px;">Culinary & Retail Specialist — Toronto</div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero animate">
+      <img src="images/profile.jpg" alt="Janahan Paraparakumaran graduation photo" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);margin-bottom:1rem;">
+      <h1>Janahan Paraparakumaran</h1>
+      <p><strong>Student</strong> | Culinary & Retail Support | Reliable & Fast-Paced Worker</p>
+      <a href="#experience" class="cta">View My Experience</a>
+    </section>
+
+    <!-- Bio -->
+    <section class="bio animate">
+      <h2>Professional Bio</h2>
+      <p>
+        I am a Toronto-based student actively seeking employment, with over two years of hands-on experience supporting food preparation and service in a school environment at Woburn Collegiate Institute. I am comfortable working in fast-paced settings, following hygiene and safety rules as instructed, and supporting daily kitchen operations. I also have experience assisting with POS systems such as Micros under supervision. As a 2025 graduate, I bring a strong work ethic, punctuality, teamwork, and a willingness to learn on every shift.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section class="animate">
+      <h2>Skill Matrix</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Back of House</h3>
+          <ul>
+            <li>Basic Knife Skills</li>
+            <li>Food Prep Assistance</li>
+            <li>Cleanliness & Sanitation</li>
+            <li>Following Instructions</li>
+          </ul>
         </div>
-      </div>
-      <nav aria-label="Top navigation">
-        <div class="chip" tabindex="0">Modern Industrial</div>
-      </nav>
-    </header>
-
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-inner">
-        <div class="hero-left">
-          <h2 id="hero-heading">Janahan Paraparakumaran</h2>
-          <p class="lead">Culinary & Retail Specialist | Dedicated to Service Excellence & Operational Speed.</p>
-
-          <div class="cta" style="margin-top:14px;">
-            <button class="btn" id="view-experience">View My Experience</button>
-            <a class="btn secondary" href="mailto:parajanahan@gmail.com" aria-label="Email Janahan">Email</a>
-          </div>
+        <div class="skill-card">
+          <h3>Front of House</h3>
+          <ul>
+            <li>POS Support (Micros)</li>
+            <li>Cash Handling Assistance</li>
+            <li>Customer Service</li>
+            <li>Professional Communication</li>
+          </ul>
         </div>
-
-        <aside class="hero-right" aria-label="Profile card">
-          <div class="profile-card" role="img" aria-label="Monogram profile placeholder">
-            <div class="profile-photo">JP</div>
-            <p class="profile-role">Culinary & Retail Specialist</p>
-            <p style="margin-top:8px;color:var(--muted);font-weight:600">2025 Graduate</p>
-          </div>
-        </aside>
+        <div class="skill-card">
+          <h3>Logistics & Support</h3>
+          <ul>
+            <li>Library Organization</li>
+            <li>Greeting & Assisting Visitors</li>
+            <li>Time Management</li>
+            <li>Reliability & Attendance</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <main>
-      <!-- Professional Bio -->
-      <section class="bio" aria-labelledby="bio-heading">
-        <h3 id="bio-heading" style="margin:0 0 8px 0;font-weight:800;color:var(--accent-2)">Professional Bio</h3>
-        <p>
-          Janahan brings over two years of hands-on experience at Woburn Collegiate Institute (2023–2025), thriving in fast-paced culinary and retail environments.
-          Trained in HACCP food safety standards and proficient with Micros POS, Janahan pairs strong knife and high-volume prep skills with inventory tracking and loyalty-program knowledge.
-          Recognized for reliability, a strong work ethic, and a commitment to operational speed and exceptional customer service.
-        </p>
-      </section>
-
-      <!-- Skill Matrix -->
-      <section aria-labelledby="skills-heading">
-        <h3 id="skills-heading" style="margin:0 0 10px 0;font-weight:800;color:var(--accent-2)">Skill Matrix</h3>
-        <div class="skills" role="list">
-          <div class="skill-card" role="listitem" aria-label="Back of House skills">
-            <h3>Back of House</h3>
-            <ul class="skill-list">
-              <li>Knife Skills</li>
-              <li>High-Volume Prep</li>
-              <li>Sanitation & Food Safety</li>
-              <li>Recipe Adherence</li>
-            </ul>
-          </div>
-
-          <div class="skill-card" role="listitem" aria-label="Front of House skills">
-            <h3>Front of House</h3>
-            <ul class="skill-list">
-              <li>Micros POS</li>
-              <li>Cash Handling</li>
-              <li>Upselling</li>
-              <li>Customer Relations</li>
-            </ul>
-          </div>
-
-          <div class="skill-card" role="listitem" aria-label="Logistics skills">
-            <h3>Logistics</h3>
-            <ul class="skill-list">
-              <li>PC Optimum / Loyalty Programs</li>
-              <li>Inventory Tracking</li>
-              <li>Time Management</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Experience Timeline -->
-      <section class="timeline" id="experience" aria-labelledby="exp-heading">
-        <h3 id="exp-heading" style="margin:0 0 6px 0;font-weight:800;color:var(--accent-2)">Experience</h3>
-
+    <!-- Experience -->
+    <section id="experience" class="animate">
+      <h2>Experience Timeline</h2>
+      <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">Cooking Assistant<br><small style="color:var(--muted);font-weight:600">2023–2025</small></div>
-          <div class="timeline-body">
-            <h4>Cooking Assistant</h4>
-            <p>Meal assembly, chopping, sanitation, and supporting high-volume service. Maintained HACCP-compliant practices and assisted with workflow to keep service moving quickly and safely.</p>
-          </div>
+          <h4>Cooking Assistant</h4>
+          <span>2023 – 2025</span>
+          <p>Assisted with meal preparation, basic chopping, food handling, cleaning workstations, and maintaining a safe and organized kitchen environment.</p>
         </div>
-
         <div class="timeline-item">
-          <div class="timeline-date">Library Support<br><small style="color:var(--muted);font-weight:600">2022–2025</small></div>
-          <div class="timeline-body">
-            <h4>Library Support</h4>
-            <p>Provided reliable organizational support, greeted visitors professionally, and helped maintain a structured environment while balancing multiple responsibilities.</p>
-          </div>
+          <h4>Library Support / Volunteer</h4>
+          <span>2022 – 2025</span>
+          <p>Supported daily library operations by greeting students and staff, organizing materials, and demonstrating responsibility and professionalism.</p>
         </div>
-      </section>
-
-      <!-- Availability -->
-      <section class="availability" aria-labelledby="availability-heading">
-        <div>
-          <h3 id="availability-heading" style="margin:0 0 6px 0;font-weight:800;color:var(--accent-2)">Availability</h3>
-          <p class="where" style="margin:0">Available for Full-Time & Part-Time shifts across Scarborough, Markham, and Toronto.</p>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-          <a class="btn" href="tel:+14374274408" aria-label="Call Janahan">Call: 437-427-4408</a>
-          <a class="btn secondary" href="mailto:parajanahan@gmail.com" aria-label="Email Janahan">Email: parajanahan@gmail.com</a>
-        </div>
-      </section>
-    </main>
-
-    <footer aria-label="Contact and sign off">
-      <div class="contact" aria-hidden="false">
-        <div>📞 437-427-4408</div>
-        <div>✉️ <a href="mailto:parajanahan@gmail.com" style="color:var(--muted);text-decoration:none">parajanahan@gmail.com</a></div>
       </div>
-      <div class="signoff">Let’s Work Together</div>
-    </footer>
+    </section>
+
+    <!-- Availability -->
+    <section class="availability animate">
+      Available for <strong>Full-Time & Part-Time</strong> shifts across <strong>Scarborough, Markham, and Toronto</strong>.
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="availability animate">
+      <p>Interested in working together?</p>
+      <p>
+        <a href="mailto:parajanahan@gmail.com" class="cta" target="_blank" rel="noopener">Email Me</a>
+        <p style="margin-top:0.8rem; font-size:0.95rem;">Or email directly: <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></p>
+      </p>
+    </section>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    <p>📞 437-427-4408</p>
+    <p>✉️ <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></p>
+    <p class="signoff">Let's Work Together</p>
+  </footer>
+
   <script>
-    // Minimal JS: smooth scroll to experience, keyboard accessible
-    (function(){
-      var btn = document.getElementById('view-experience');
-      var target = document.getElementById('experience');
-      if(btn && target){
-        btn.addEventListener('click', function(e){
-          e.preventDefault();
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-          // Move focus for screen readers
-          target.setAttribute('tabindex','-1');
-          target.focus({preventScroll:true});
-        });
-      }
-    })();
+    // --- Loading Screen ---
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loading-screen');
+      loader.style.opacity = '0';
+      loader.style.pointerEvents = 'none';
+      setTimeout(() => loader.style.display = 'none', 600);
+    });
+
+    // --- Scroll Animations ---
+    const scrollElements = document.querySelectorAll('.animate');
+
+    const elementInView = (el, dividend = 1.25) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return (
+        elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+      );
+    };
+
+    const displayScrollElement = (el) => {
+      el.classList.add('visible');
+    };
+
+    const handleScrollAnimation = () => {
+      scrollElements.forEach(el => {
+        if (elementInView(el, 1.2)) {
+          displayScrollElement(el);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScrollAnimation);
+    window.addEventListener('load', handleScrollAnimation);
   </script>
+
 </body>
 </html>
