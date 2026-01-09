@@ -23,6 +23,73 @@
       background-color: var(--charcoal);
       color: var(--white);
       line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
+    }
+
+    .loader {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .loader span {
+      width: 15px;
+      height: 15px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    .loader span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .loader span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    /* Scroll Animations */
+    .animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero image animation */
+    .hero img {
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+    .hero img.visible {
+      transform: scale(1.05);
+      opacity: 1;
     }
 
     a {
@@ -65,12 +132,13 @@
       border-radius: 4px;
       font-weight: 700;
       width: fit-content;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
     }
 
     .cta:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255,106,0,0.6);
+      opacity: 0.95;
     }
 
     section {
@@ -102,6 +170,12 @@
       padding: 1.5rem;
       border-radius: 6px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
     .skill-card h3 {
@@ -129,6 +203,12 @@
       padding: 1.4rem;
       border-left: 4px solid var(--accent);
       border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
     }
 
     .timeline-item h4 {
@@ -176,9 +256,18 @@
 </head>
 <body>
 
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
   <div class="container">
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero animate">
       <img src="images/profile.jpg" alt="Janahan Paraparakumaran graduation photo" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);margin-bottom:1rem;">
       <h1>Janahan Paraparakumaran</h1>
       <p><strong>Student</strong> | Culinary & Retail Support | Reliable & Fast-Paced Worker</p>
@@ -186,7 +275,7 @@
     </section>
 
     <!-- Bio -->
-    <section class="bio">
+    <section class="bio animate">
       <h2>Professional Bio</h2>
       <p>
         I am a Toronto-based student actively seeking employment, with over two years of hands-on experience supporting food preparation and service in a school environment at Woburn Collegiate Institute. I am comfortable working in fast-paced settings, following hygiene and safety rules as instructed, and supporting daily kitchen operations. I also have experience assisting with POS systems such as Micros under supervision. As a 2025 graduate, I bring a strong work ethic, punctuality, teamwork, and a willingness to learn on every shift.
@@ -194,7 +283,7 @@
     </section>
 
     <!-- Skills -->
-    <section>
+    <section class="animate">
       <h2>Skill Matrix</h2>
       <div class="skills-grid">
         <div class="skill-card">
@@ -228,7 +317,7 @@
     </section>
 
     <!-- Experience -->
-    <section id="experience">
+    <section id="experience" class="animate">
       <h2>Experience Timeline</h2>
       <div class="timeline">
         <div class="timeline-item">
@@ -245,12 +334,12 @@
     </section>
 
     <!-- Availability -->
-    <section class="availability">
+    <section class="availability animate">
       Available for <strong>Full-Time & Part-Time</strong> shifts across <strong>Scarborough, Markham, and Toronto</strong>.
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="availability">
+    <section id="contact" class="availability animate">
       <p>Interested in working together?</p>
       <p>
         <a href="mailto:parajanahan@gmail.com" class="cta" target="_blank" rel="noopener">Email Me</a>
@@ -265,6 +354,41 @@
     <p>✉️ <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></p>
     <p class="signoff">Let's Work Together</p>
   </footer>
+
+  <script>
+    // --- Loading Screen ---
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loading-screen');
+      loader.style.opacity = '0';
+      loader.style.pointerEvents = 'none';
+      setTimeout(() => loader.style.display = 'none', 600);
+    });
+
+    // --- Scroll Animations ---
+    const scrollElements = document.querySelectorAll('.animate');
+
+    const elementInView = (el, dividend = 1.25) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return (
+        elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+      );
+    };
+
+    const displayScrollElement = (el) => {
+      el.classList.add('visible');
+    };
+
+    const handleScrollAnimation = () => {
+      scrollElements.forEach(el => {
+        if (elementInView(el, 1.2)) {
+          displayScrollElement(el);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScrollAnimation);
+    window.addEventListener('load', handleScrollAnimation);
+  </script>
 
 </body>
 </html>
