@@ -25,6 +25,7 @@
       line-height: 1.6;
       overflow-x: hidden;
       scroll-behavior: smooth;
+      padding-bottom: 120px; /* space for fixed music player */
     }
 
     /* Loading Screen */
@@ -247,6 +248,135 @@
       color: var(--accent);
     }
 
+    /* Music player (fixed bar) */
+    .music-player {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 16px;
+      width: min(1000px, calc(100% - 32px));
+      background: linear-gradient(180deg, rgba(32,32,32,0.98), rgba(24,24,24,0.95));
+      border: 1px solid rgba(255,106,0,0.12);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      color: var(--white);
+      padding: 12px 14px;
+      border-radius: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(6px);
+    }
+
+    .music-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 240px;
+    }
+
+    .music-caption {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .play-btn {
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--charcoal);
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255,106,0,0.35);
+      transition: transform 0.12s ease;
+    }
+
+    .play-btn:active { transform: scale(0.98); }
+    .play-btn svg { width: 18px; height: 18px; }
+
+    .music-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .track-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+
+    .track-source {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .music-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .progress {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress::-webkit-progress-bar { background: rgba(255,255,255,0.08); }
+    .progress::-webkit-progress-value { background: linear-gradient(90deg, var(--accent), #ff9a4d); }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .volume {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .volume input[type="range"] {
+      width: 110px;
+    }
+
+    .music-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 8px;
+    }
+
+    .small-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--white);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      .music-player { flex-direction: column; align-items: stretch; padding: 12px; gap: 10px; }
+      .music-left { min-width: 0; gap: 10px; }
+      .volume input[type="range"] { width: 80px; }
+    }
+
     @media (min-width: 768px) {
       .hero {
         padding-top: 4rem;
@@ -268,7 +398,7 @@
   <div class="container">
     <!-- Hero Section -->
     <section class="hero animate">
-      <img src="images/profile.jpg" alt="Janahan Paraparakumaran graduation photo" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);margin-bottom:1rem;">
+      <img src="images/profile.jpg" alt="Janahan Paraparakumaran graduation photo" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);margin-bottom:1rem;" />
       <h1>Janahan Paraparakumaran</h1>
       <p><strong>Student</strong> | Culinary & Retail Support | Reliable & Fast-Paced Worker</p>
       <a href="#experience" class="cta">View My Experience</a>
@@ -278,7 +408,7 @@
     <section class="bio animate">
       <h2>Professional Bio</h2>
       <p>
-        I am a Toronto-based student actively seeking employment, with over two years of hands-on experience supporting food preparation and service in a school environment at Woburn Collegiate Institute. I am comfortable working in fast-paced settings, following hygiene and safety rules as instructed, and supporting daily kitchen operations. I also have experience assisting with POS systems such as Micros under supervision. As a 2025 graduate, I bring a strong work ethic, punctuality, teamwork, and a willingness to learn on every shift.
+        I am a Toronto-based student actively seeking employment, with over two years of hands-on experience supporting food preparation and service in a school environment at Woburn Collegiate Institute. I take pride in cleanliness, punctuality, and working quickly while following directions to keep service running smoothly.
       </p>
     </section>
 
@@ -340,11 +470,11 @@
 
     <!-- Contact -->
     <section id="contact" class="availability animate">
-      <p>Interested in working together?</p>
-      <p>
+      <div style="font-weight:700;">Interested in working together?</div>
+      <div style="margin-top:0.6rem; display:flex; gap:12px; align-items:center; justify-content:center; flex-direction:column;">
         <a href="mailto:parajanahan@gmail.com" class="cta" target="_blank" rel="noopener">Email Me</a>
-        <p style="margin-top:0.8rem; font-size:0.95rem;">Or email directly: <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></p>
-      </p>
+        <div style="margin-top:0.8rem; font-size:0.95rem; opacity:0.95">Or email directly: <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></div>
+      </div>
     </section>
   </div>
 
@@ -354,6 +484,56 @@
     <p>✉️ <a href="mailto:parajanahan@gmail.com">parajanahan@gmail.com</a></p>
     <p class="signoff">Let's Work Together</p>
   </footer>
+
+  <!-- Music Player -->
+  <div class="music-player" aria-label="Music player: listen to music while you browse">
+    <!-- Hidden native audio element (we control it via JS) -->
+    <audio id="site-audio" preload="metadata">
+      <!-- Use a reliably hosted demo MP3 that's CORS-friendly -->
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element. You can <a href="https://www.soundhelix.com/audio-examples" target="_blank" rel="noopener">open the track source</a>.
+    </audio>
+
+    <div class="music-left">
+      <button class="play-btn" id="play-pause" aria-label="Play">
+        <!-- play icon -->
+        <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <!-- pause icon (hidden by default) -->
+        <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+        </svg>
+      </button>
+
+      <div class="music-info">
+        <div class="music-caption">listen to music while you browse</div>
+        <div class="track-title">SoundHelix Demo Track</div>
+        <div class="track-source">
+          <a href="https://www.soundhelix.com/audio-examples" target="_blank" rel="noopener" style="color:inherit; opacity:0.9;">Open source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-controls" style="min-width: 240px;">
+      <progress id="progress" class="progress" value="0" max="100" aria-label="Track progress"></progress>
+      <div class="time-row">
+        <div id="time-elapsed">0:00</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div id="time-total">0:00</div>
+          <div class="music-actions">
+            <div class="volume" title="Volume">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;opacity:0.9;">
+                <path d="M3 10v4h4l5 5V5L7 10H3z"></path>
+              </svg>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="0.65" aria-label="Volume slider">
+            </div>
+            <button class="small-btn" id="mute-btn" title="Mute/unmute">Mute</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // --- Loading Screen ---
@@ -388,6 +568,106 @@
 
     window.addEventListener('scroll', handleScrollAnimation);
     window.addEventListener('load', handleScrollAnimation);
+
+    // --- Music Player Controls ---
+    (function() {
+      const audio = document.getElementById('site-audio');
+      const playPauseBtn = document.getElementById('play-pause');
+      const playIcon = document.getElementById('play-icon');
+      const pauseIcon = document.getElementById('pause-icon');
+      const progress = document.getElementById('progress');
+      const timeElapsed = document.getElementById('time-elapsed');
+      const timeTotal = document.getElementById('time-total');
+      const volume = document.getElementById('volume');
+      const muteBtn = document.getElementById('mute-btn');
+
+      // Set initial volume
+      audio.volume = parseFloat(volume.value);
+
+      function formatTime(s) {
+        if (isNaN(s)) return '0:00';
+        const minutes = Math.floor(s / 60);
+        const seconds = Math.floor(s % 60).toString().padStart(2, '0');
+        return minutes + ':' + seconds;
+      }
+
+      // Update total duration when metadata loads
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      // Update progress bar during playback
+      audio.addEventListener('timeupdate', () => {
+        const pct = (audio.currentTime / (audio.duration || 1)) * 100;
+        progress.value = Math.max(0, Math.min(100, pct));
+        timeElapsed.textContent = formatTime(audio.currentTime);
+      });
+
+      // Toggle play/pause
+      function setPlayingState(isPlaying) {
+        if (isPlaying) {
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      }
+
+      playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().catch(err => {
+            // Play may be blocked by browser autoplay policies — open source link as fallback
+            console.warn('Playback prevented:', err);
+            window.open('https://www.soundhelix.com/audio-examples', '_blank', 'noopener');
+          });
+        } else {
+          audio.pause();
+        }
+      });
+
+      audio.addEventListener('play', () => setPlayingState(true));
+      audio.addEventListener('pause', () => setPlayingState(false));
+      audio.addEventListener('ended', () => {
+        audio.currentTime = 0;
+        audio.pause();
+      });
+
+      // Seek when user clicks the progress bar
+      progress.addEventListener('click', (e) => {
+        const rect = progress.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        if (!isNaN(audio.duration)) {
+          audio.currentTime = Math.max(0, Math.min(1, pct)) * audio.duration;
+        }
+      });
+
+      // Volume control
+      volume.addEventListener('input', (e) => {
+        audio.volume = parseFloat(e.target.value);
+        if (audio.volume === 0) {
+          muteBtn.textContent = 'Unmute';
+        } else {
+          muteBtn.textContent = 'Mute';
+        }
+      });
+
+      // Mute/unmute
+      muteBtn.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? 'Unmute' : 'Mute';
+      });
+
+      // Ensure visual state on load
+      setPlayingState(!audio.paused);
+      timeElapsed.textContent = '0:00';
+      // If metadata is already available update total
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        timeTotal.textContent = formatTime(audio.duration);
+      }
+    })();
   </script>
 
 </body>
